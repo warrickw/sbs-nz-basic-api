@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace SbsApiV2
 {
     /// <summary>
-    /// Simple cryptography utilities, mainly wrapping inbuilt crypto functions
+    /// Simple aes utilities for using aes in cbc mode with simple byte buffers
     /// </summary>
-    public static class CryptoUtilities
+    public static class AesUtilities
     {
         /// <summary>
         /// Encrypt a byte array using AES in CBC mode
@@ -51,34 +51,25 @@ namespace SbsApiV2
         /// <returns></returns>
         public static byte[] AES_Decrypt_CBC(byte[] input, byte[] key, byte[] initVector)
         {
-            try
+            using (MemoryStream msDecrypt = new MemoryStream(input))
             {
-                using (MemoryStream msDecrypt = new MemoryStream(input))
+                // Create a RijndaelManaged object
+                // with the specified key and IV.
+                Aes aesAlg = Aes.Create();
+                aesAlg.Key = key;
+                // Get the initialization vector from the encrypted stream
+                aesAlg.IV = initVector;
+                // Create a decrytor to perform the stream transform.
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                 {
-                    // Create a RijndaelManaged object
-                    // with the specified key and IV.
-                    Aes aesAlg = Aes.Create();
-                    aesAlg.Key = key;
-                    // Get the initialization vector from the encrypted stream
-                    aesAlg.IV = initVector;
-                    // Create a decrytor to perform the stream transform.
-                    ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    using (MemoryStream result = new MemoryStream())
                     {
-                        using (MemoryStream result = new MemoryStream())
-                        {
-                            csDecrypt.CopyTo(result);
-                            return result.ToArray();
-                        }
+                        csDecrypt.CopyTo(result);
+                        return result.ToArray();
                     }
                 }
             }
-            catch(Exception e)
-            {
-                string asdf = e.Message;
-                return new byte[0];
-            }
         }
-
     }
 }

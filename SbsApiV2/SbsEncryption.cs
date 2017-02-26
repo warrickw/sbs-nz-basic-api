@@ -68,7 +68,7 @@ namespace SbsApiV2
             // Create an iv for the aes encryption
             byte[] iv = GenerateIV();
 
-            string encryptedString = Convert.ToBase64String(CryptoUtilities.AES_Encrypt_CBC(Encoding.UTF8.GetBytes(input), aesKey, iv));
+            string encryptedString = Convert.ToBase64String(AesUtilities.AES_Encrypt_CBC(Encoding.UTF8.GetBytes(input), aesKey, iv));
 
             return Convert.ToBase64String(iv) + encryptedString;
         }
@@ -87,7 +87,7 @@ namespace SbsApiV2
             byte[] ivPayload = Convert.FromBase64String(input.Substring(0, 24));
             byte[] encryptedPaylod = Convert.FromBase64String(input.Substring(24));
 
-            string decryptedString = Encoding.UTF8.GetString(CryptoUtilities.AES_Decrypt_CBC(encryptedPaylod, aesKey, ivPayload));
+            string decryptedString = Encoding.UTF8.GetString(AesUtilities.AES_Decrypt_CBC(encryptedPaylod, aesKey, ivPayload));
 
             return decryptedString;
         }

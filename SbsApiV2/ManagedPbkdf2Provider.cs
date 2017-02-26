@@ -14,6 +14,15 @@ namespace SbsApiV2
     /// </summary>
     public class ManagedPbkdf2Provider
     {
+        /// <summary>
+        /// Derive a key for a password
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="salt"></param>
+        /// <param name="prf"></param>
+        /// <param name="iterationCount"></param>
+        /// <param name="numBytesRequested"></param>
+        /// <returns></returns>
         public static byte[] DeriveKey(byte[] password, byte[] salt, KeyDerivationPrf prf, int iterationCount, int numBytesRequested)
         {
             Debug.Assert(password != null);
