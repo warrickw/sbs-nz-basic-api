@@ -28,6 +28,19 @@ namespace SbsApiV2.Models.AccountGet
         public List<string> DescriptionElements { get; set; }
     }
 
+    public class ItemListPayee
+    {
+        public int BadgeColour { get; set; }
+        public string BadgeName { get; set; }
+        public string PayeeName { get; set; }
+        public string PayeeAltName { get; set; }
+        public int PayeeId { get; set; }
+        public int OrganisationId { get; set; }
+        public bool IsIrdOrganisation { get; set; }
+        public string PayeeUri { get; set; }
+        public string DocumentType { get; set; }
+    }
+
     public class ItemList
     {
 
@@ -50,7 +63,7 @@ namespace SbsApiV2.Models.AccountGet
         public object Organisation { get; set; }
 
         [JsonProperty("Payee")]
-        public object Payee { get; set; }
+        public ItemListPayee Payee { get; set; }
 
         [JsonProperty("Status")]
         public string Status { get; set; }

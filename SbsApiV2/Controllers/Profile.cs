@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using SbsApiV2.Models;
+using SbsApiV2.Models.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,8 +43,7 @@ namespace SbsApiV2.Controllers
             ProfileResponse accountResponse = await httpResponse.Content.ReadAs<ProfileResponse>(HttpContext.GetSbsEncryption());
             httpResponse.Dispose();
 
-            return Ok(accountResponse);
+            return Ok(new ProfileGetViewModel(accountResponse));
         }
-
     }
 }

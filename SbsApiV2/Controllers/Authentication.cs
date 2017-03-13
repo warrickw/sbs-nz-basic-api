@@ -39,7 +39,7 @@ namespace SbsApiV2.Controllers
                 string responseBody = await oneTimeLoginResponse.Content.ReadAsStringAsync();
                 return null;
             }
-                
+            
 
             // Get the response model for the one time login request
             OneTimeLoginResponse oneTimeResponse = await oneTimeLoginResponse.Content.ReadAs<OneTimeLoginResponse>();
@@ -124,10 +124,10 @@ namespace SbsApiV2.Controllers
             sessionTokenContainer.CookieHeader = createSessionResponse.CookieHeader;
             sessionTokenContainer.UserId = createSessionResponse.UserId;
 
-            // Add the authorization header with a custom token
-            Response.Headers.Add("Authorization", "Token " + sessionTokenContainer.Serialize());
-
-            return Ok(createSessionResponse);
+            return Ok(new
+            {
+                Token = sessionTokenContainer.Serialize()
+            });
         }
     }
 }

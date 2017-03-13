@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using SbsApiV2.Models;
 using SbsApiV2.Models.AccountGet;
+using SbsApiV2.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace SbsApiV2.Controllers
             AccountResponse accountResponse = await accountsResponse.Content.ReadAs<AccountResponse>(HttpContext.GetSbsEncryption());
             accountsResponse.Dispose();
 
-            return Ok(accountResponse);
+            return Ok(accountResponse.Accounts.Select(r => new AccountViewModel(r)));
         }
 
 
@@ -112,7 +113,7 @@ namespace SbsApiV2.Controllers
                 chunk++;
             }
 
-            return Ok(transactions);
+            return Ok(transactions.Select(t => new TransactionViewModel(t)));
         }
     }
 }
