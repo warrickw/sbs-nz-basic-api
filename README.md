@@ -1,0 +1,7 @@
+# SBS NZ third party RESTful api
+SBS Bank NZ basic RESTful api with access to accounts, transactions, and moving money between your accounts.
+
+SBS Bank of New Zealand didn't have a mobile app at the time I created this, so I set it upon myself to build my own basic mobile app that allowed me to view my member details, accounts and transaction history, as well as transfer money between my accounts. This api was built of the existing website, which was a single page application - allowing me to reverse engineer the encryption that the website was using, and expose the api in a simple RESTful fasion.
+I'd also like to point out that the application level encryption the bank is using is pretty pointless... I would assume the reason for encrypting on top of TLS is to prevent companies/schools that force users to install certificates on all their devices from decrypting the sensitive information - but although the encryption key is never directly sent across the network, it can be deduced by taking parts of unencrypted net calls before the encryption is used... which makes this only worth the obscurity it creates.
+
+Soon (as of March 2017) the bank will be releasing their own mobile app using a platform I like to call BankFail (aka BankFast) - which hopefully looks a lot better than what I've seen from other banks using the same platform... and I look forward to gaining access to the api it uses and building some even cooler apps that use my spending data :)
