@@ -1,0 +1,156 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SBS api v2",
+		"_postman_id": "e8b99e5b-0b39-21ae-0eee-00fae9d2d33d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"postman.setEnvironmentVariable(\"token\", jsonData.token);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/authentication",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"um_no\",\n\t\"password\": \"ha_nice_try\"\n}"
+				},
+				"description": "Authenticate with the sbs api"
+			},
+			"response": []
+		},
+		{
+			"name": "Get accounts",
+			"request": {
+				"url": "{{url}}/accounts",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "token {{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"description": "Get all your bank accounts"
+			},
+			"response": []
+		},
+		{
+			"name": "Get account details",
+			"request": {
+				"url": "{{url}}/accounts/3",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"description": "Get details for an account by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer money ",
+			"request": {
+				"url": "{{url}}/transfer",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"FromAccount\": 1,\n\t\"ToAccount\": 3,\n\t\"Amount\": 1,\n\t\"Particulars\": \"partic\",\n\t\"Reference\": \"refer\",\n\t\"Code\": \"code\",\n\t\"Details\": null,\n\t\"UseSameDetails\": true\n}"
+				},
+				"description": "Transfer money between your personal accounts"
+			},
+			"response": []
+		},
+		{
+			"name": "Get profile",
+			"request": {
+				"url": "{{url}}/profile",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"description": "Get your SBS profile"
+			},
+			"response": []
+		},
+		{
+			"name": "Get header image",
+			"request": {
+				"url": "{{url}}/images/header",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Uses bing Image of the Day api"
+			},
+			"response": []
+		}
+	]
+}
