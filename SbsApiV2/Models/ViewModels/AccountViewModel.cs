@@ -7,8 +7,8 @@
             Id = model.Id;
             Name = model.Name;
             Number = model.Number;
-            AvailableFunds = SbsCurrencyUtilities.Parse(model.AvailableFunds) * 0.05m;
-            Balance = SbsCurrencyUtilities.Parse(model.Balance) * 0.05m;
+            AvailableFunds = SbsCurrencyUtilities.Parse(model.AvailableFunds);
+            Balance = SbsCurrencyUtilities.Parse(model.Balance);
             AllowsDeposit = model.AllowsDeposit;
             AllowsWithdrawal = model.AllowsWithdrawal;
         }
